@@ -1,0 +1,33 @@
+<snippet>
+	<content><![CDATA[
+//intialize distance by inf
+void dijkstra(vector<vector<pair<lint,lint>>> &adj,lint s,vector<lint> &distance)
+{
+    pq_greater pq;
+    distance[s]=0;
+    lint visited[adj.size()]={};
+    pq.push({0,s});
+    while(!pq.empty())
+    {
+        pair<lint,lint> x=pq.top();
+        pq.pop();
+        if(visited[x.ss]==1)
+            continue;
+        visited[x.ss]=1;
+        for(auto u:adj[x.ss])
+        {
+            if(distance[u.ff]>distance[x.ss]+u.ss)
+            {
+                distance[u.ff]=distance[x.ss]+u.ss;
+                pq.push({distance[u.ff],u.ff});;
+            }
+        }
+
+    }
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>graph_dijkstra</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

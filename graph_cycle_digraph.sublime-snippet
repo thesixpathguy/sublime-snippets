@@ -1,0 +1,41 @@
+<snippet>
+	<content><![CDATA[
+// run for loop in main function for all visited[i]=0 so that all scc are covered
+// if ans size is grater than 2 after any iteration then we have got the ans
+// else after finishing of loop if ans.size == 0 then it has no cycle 
+void cycle_digraph(vector<vector<lint>> &adj,vector<lint> &visited,lint s,stack<lint> &st,vector<lint> &ans)
+{
+    if(visited[s]==2)
+        return;
+    if(visited[s]==1)
+    {
+        if(ans.size()>0)
+            return;
+        ans.pb(s);
+        while(1)
+        {
+            lint x=st.top();
+            st.pop();
+            ans.pb(x);
+            if(x==s)
+                break;
+        }
+        return;
+    }
+    visited[s]=1;
+    st.push(s);
+    for(auto u:adj[s])
+    {
+        cycle_digraph(adj,visited,u,st,ans);
+        
+    }
+    if(!st.empty())
+    st.pop();
+    visited[s]=2;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>graph_cycle_digraph</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

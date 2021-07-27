@@ -1,0 +1,62 @@
+<snippet>
+	<content><![CDATA[
+void dwpath(vector<vector<lint>> &adj,lint *visited,lint s,lint c,lint *downpath)
+{
+    if(visited[s])
+        return;
+    visited[s]=1;
+    lint maxx=-1;
+    for(auto u:adj[s])
+    {
+        if(c!=u)
+        {
+            dwpath(adj,visited,u,s,downpath);
+            maxx=max(maxx,downpath[u]);
+        }
+    }
+    downpath[s]=1+maxx;
+}
+
+void dfs1(vector<vector<lint>> &adj,lint *visited,lint s,lint c,lint *maxx_tree,lint *downpath)
+{
+    if(visited[s])
+        return;
+    visited[s]=1;
+    vector<lint> temp;
+    for(auto u:adj[s])
+    {
+        if(u!=c)
+        {
+            temp.pb(downpath[u]);
+        }
+    }
+    sort(temp.begin(),temp.end());
+    if(temp.size()==0)
+    {
+        maxx_tree[s]=0;
+        return;
+    }
+    else if(temp.size()==1)
+    {
+        maxx_tree[s]=1+temp[temp.size()-1];
+    }
+    else
+    {
+        maxx_tree[s]=2+temp[temp.size()-1]+temp[temp.size()-2];
+    }
+    for(auto u:adj[s])
+    {
+        if(u!=c)
+        {
+            dfs1(adj,visited,u,s,maxx_tree,downpath);
+            maxx_tree[s]=max(maxx_tree[s],maxx_tree[u]);
+        }
+    }
+    return;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>tree_diameter</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

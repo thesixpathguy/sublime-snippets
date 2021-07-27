@@ -1,0 +1,83 @@
+<snippet>
+	<content><![CDATA[
+// matrix exponentiation
+const lint MOD2=static_cast<lint>(MOD)*MOD;
+
+struct Matrix
+{
+    vector<vector<lint>> mat;
+    lint n_rows, n_cols;
+ 
+    Matrix() {}
+ 
+    Matrix(vector<vector<lint>>values): mat(values),n_rows(values.size()),
+        n_cols(values[0].size()) {}
+ 
+    static Matrix identity_matrix(lint n)
+    {
+        vector<vector<lint>> values(n,vector<lint>(n,0));
+        for(lint i=0;i<n;i++)
+            values[i][i]=1ll;
+        return values;
+    }
+ 
+    Matrix operator*(const Matrix &other) const 
+    {
+        lint n=n_rows;
+        lint m=other.n_cols;
+        vector<vector<lint>> result(n_rows,vector<lint>(n_cols,0));
+        for(lint i=0;i<n;i++)
+        {
+            for(lint j=0;j<m;j++) 
+            {
+                lint temp=0;
+                for(lint k=0;k<n_cols;k++) 
+                {
+                    temp+=mat[i][k]*1ll*other.mat[k][j];
+                    while(temp>=MOD2)
+                        temp-=MOD2;
+                }
+                result[i][j]=temp%MOD;
+            }
+        }           
+ 
+        return move(Matrix(move(result)));
+    }
+ 
+    inline bool is_square() const
+    {
+        return n_rows==n_cols;
+    }
+
+    void print_mat()
+    {
+        for(lint i=0;i<n_rows;i++)
+        {
+            for(lint j=0;j<n_cols;j++)
+            {
+                cout<<mat[i][j]<<" ";
+            }
+            cout<<endl;
+        }
+    }
+};
+ 
+// matrix binary exponentiation, returns a^p
+// uses template mod as const MOD
+Matrix pw(Matrix a,lint p){
+    Matrix result=Matrix::identity_matrix(a.n_cols);
+    while(p>0) 
+    {
+        if(p&1)
+            result=a*result;
+        a=a*a;
+        p>>=1;
+    }
+    return result;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>gen_mat_expo</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

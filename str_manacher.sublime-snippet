@@ -1,0 +1,55 @@
+<snippet>
+	<content><![CDATA[
+// length of palindrome of odd length centred at i = 2*d1[i]-1
+// l and r keeps the track of ;eft and right border of largest current palindrome
+// O(n) 
+vector<lint> manacher_odd(string s)
+{
+    lint n=s.length();
+    vector<lint> d1(n);
+    for(lint i=0,l=0,r=-1;i<n;i++) 
+    {
+        lint k=(i>r)?1:min(d1[l+r-i],r-i+1);
+        while(0<=i-k&&i+k<n&&s[i-k]==s[i+k])
+        {
+            k++;
+        }
+        d1[i]=k;
+        if(i+k-1>r) 
+        {
+            l=i-k+1;
+            r=i+k-1;
+        }
+    }
+    return d1;
+}
+
+// length of palindrome of even length (*right-centred*) at i = 2*d1[i]
+// l and r keeps the track of left and right border of largest current palindrome
+// O(n) 
+vector<lint> manacher_even(string s)
+{
+    lint n=s.length();
+    vector<lint> d1(n);
+    for(lint i=0,l=0,r=-1;i<n;i++) 
+    {
+        lint k=(i>r)?0:min(d1[l+r-i+1],r-i+1);
+        while(0<=i-k-1&&i+k<n&&s[i-k-1]==s[i+k])
+        {
+            k++;
+        }
+        d1[i]=k;
+        if(i+k-1>r) 
+        {
+            l=i-k;
+            r=i+k-1;
+        }
+    }
+    return d1;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>str_manacher</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

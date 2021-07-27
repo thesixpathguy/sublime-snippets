@@ -1,0 +1,26 @@
+<snippet>
+	<content><![CDATA[
+//assign inf to points which cant be reached
+void floyd_warshall(vector<vector<lint>> &distance,lint n)
+{
+    for(lint i=1;i<=n;i++)
+    {
+        distance[i][i]=0;
+    }
+    for(lint k=1;k<=n;k++)
+    {
+        for(lint i=1;i<=n;i++)
+        {
+            for(lint j=1;j<=n;j++)
+            {
+                distance[i][j]=min(distance[i][j],distance[i][k]+distance[k][j]);
+            }
+        }
+    }
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>graph_apsp</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

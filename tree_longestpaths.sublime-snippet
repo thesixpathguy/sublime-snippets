@@ -1,0 +1,78 @@
+<snippet>
+	<content><![CDATA[
+void dwpath(vector<vector<lint>> &adj,lint *visited,lint s,lint c,lint *downpath)
+{
+    if(visited[s])
+        return;
+    visited[s]=1;
+    lint maxx=-1;
+    for(auto u:adj[s])
+    {
+        if(c!=u)
+        {
+            dwpath(adj,visited,u,s,downpath);
+            maxx=max(maxx,downpath[u]);
+        }
+    }
+    downpath[s]=1+maxx;
+}
+
+//give initial par_ans = -1
+void dfs(vector<vector<lint>> &adj,lint *visited,lint s,lint c,lint *downpath,lint par_ans,lint *ans)
+{
+
+    if(visited[s])
+        return;
+    visited[s]=1;
+    vector<lint> pref;
+    vector<lint> suff;
+    for(auto u:adj[s])
+    {
+        if(u!=c)
+        {
+            pref.pb(downpath[u]);
+            suff.pb(downpath[u]);
+        }
+    }
+    for(lint i=1;i<pref.size();i++)
+    {
+        pref[i]=max(pref[i],pref[i-1]);
+    }
+    lint n=suff.size();
+    for(lint i=n-2;i>=0;i--)
+    {
+        suff[i]=max(suff[i],suff[i+1]);
+    }
+    lint idx=0;
+    for(auto u:adj[s])
+    {
+        if(u!=c)
+        {
+            lint maxx=-20;
+            if(idx!=0)
+            {
+                maxx=max(maxx,pref[idx-1]);
+            }
+            if(idx!=pref.size()-1)
+            {
+                maxx=max(maxx,suff[idx+1]);
+            }
+            lint partial=1+max(par_ans,maxx);
+            dfs(adj,visited,u,s,downpath,partial,ans);
+            idx++;
+        }
+    }
+    if(pref.size()==0)
+    {
+        ans[s]=1+par_ans;
+        return;
+    }
+    ans[s]=1+max(par_ans,pref.back());
+
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>tree_longestpaths</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

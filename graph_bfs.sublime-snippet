@@ -1,0 +1,29 @@
+<snippet>
+	<content><![CDATA[
+void bfs(vector<vector<lint>> &adj,lint s,vector<lint> &distance)
+{
+    queue<lint> q;
+    vector<lint> visited(adj.size(),0);
+    q.push(s);
+    distance[s]=0;
+    visited[s]=1;
+    while(!q.empty())
+    {
+        lint x=q.front();
+        q.pop();
+        for(auto u:adj[x])
+        {
+            if(visited[u])
+                continue;
+            visited[u]=1;
+            distance[u]=distance[x]+1;
+            q.push(u);
+        }
+    }
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>graph_bfs</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

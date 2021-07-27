@@ -1,0 +1,27 @@
+<snippet>
+	<content><![CDATA[
+// O(log(p)) with precomputation
+// fermats theorem
+lint nCrModPFermat(lint n,lint r,lint p)
+{
+    // if n<r, then nCr should return 0
+    if (n<r)
+        return 0;
+    // Base case
+    if(r==0)
+        return 1;
+ 
+    // // precompute fact[i] i = 1...n for O(log(p)) 
+    // unsigned long long fac[n + 1];
+    // fac[0] = 1;
+    // for (int i = 1; i <= n; i++)
+    //     fac[i] = (fac[i - 1] * i) % p;
+ 
+     return ((fact[n]*modInverse(fact[r],p))%p*modInverse(fact[n-r],p))%p;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>mth_nCr</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

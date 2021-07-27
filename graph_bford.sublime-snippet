@@ -1,0 +1,28 @@
+<snippet>
+	<content><![CDATA[
+void bford(vector<tuple<lint,lint,lint>> &edge,vector<lint> &distance,lint s,lint &flg)
+{
+    distance[s]=0;
+    for(lint i=0;i<=edge.size();i++)
+    {
+        flg=0;
+        for(auto u:edge)
+        {
+            lint a,b,c;
+            tie(a,b,c)=u;
+            if(distance[a]+c<distance[b])
+            {
+                distance[b]=distance[a]+c;
+                flg=1;
+            }
+
+        }
+    }
+    
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>graph_bford</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

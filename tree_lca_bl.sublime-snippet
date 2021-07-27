@@ -1,0 +1,72 @@
+<snippet>
+	<content><![CDATA[
+//depth of 1 = -1 (initialize)
+//intial c in main will be 1
+void dwpath(vector<vector<lint>> &adj,lint *visited,lint s,lint c,lint *parent,lint *depth)
+{
+    if(visited[s])
+        return;
+    visited[s]=1;
+    parent[s]=c;
+    depth[s]=depth[c]+1;
+    for(auto u:adj[s])
+    {
+        if(c!=u)
+        {
+            dwpath(adj,visited,u,s,parent,depth);
+        }
+    }
+}
+
+//O(n*log(n))
+//--------ceil of log n--------
+void precomputation(vector<vector<lint>> &adj,vector<vector<lint>> &pre,lint *parent,lint lim,lint n)
+{
+    for(lint i=1;i<=n;i++)
+    {
+        pre[i][0]=parent[i];
+    }
+    for(lint i=1;i<lim;i++)
+    {
+        for(lint j=1;j<=n;j++)
+        {
+            pre[j][i]=pre[pre[j][i-1]][i-1];
+        }
+    }
+}
+
+//lca using binary lifting
+lint lca_bl(vector<vector<lint>> &adj,vector<vector<lint>> &pre,lint *depth,lint lim,lint n,lint a,lint b)
+{
+    if(depth[a]>depth[b])
+        swap(a,b);
+    lint d=depth[b]-depth[a];
+    while(d>0)
+    {
+        lint i=log2(d);
+        b=pre[b][i];
+        d=d-(1<<i);
+    }
+    if(a==b)
+    {
+        return a;
+    }
+    for(lint i=lim;i>=0;i--)
+    {
+        if(depth[a]>=(lint)power(2,i))
+        {
+            if(pre[a][i]!=pre[b][i])
+            {
+                a=pre[a][i];
+                b=pre[b][i];
+            }
+        }
+    }
+    return pre[a][0];
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>tree_lca_bl</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

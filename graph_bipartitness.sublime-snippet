@@ -1,0 +1,32 @@
+<snippet>
+	<content><![CDATA[
+//if flg==1 returning from function then graph is not bipartite
+//initially pass flg=0 and color=1 in function
+void chk_bipartite(vector<vector<lint>> &adj,vector<lint> &visited,lint s,lint color,vector<lint> &ans,lint &flg)
+{
+    if(visited[s])
+    {
+        if(ans[s]!=color)
+        {
+            flg=1;
+            return;
+        }
+        return;
+    }
+    visited[s]=1;
+    ans[s]=color;
+    for(auto u:adj[s])
+    {
+        if(color==1)
+            chk_bipartite(adj,visited,u,2,ans,flg);
+        else
+            chk_bipartite(adj,visited,u,1,ans,flg);
+        
+    }
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>graph_bipartitness</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

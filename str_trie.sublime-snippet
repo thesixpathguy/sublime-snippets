@@ -1,0 +1,76 @@
+<snippet>
+	<content><![CDATA[
+//idx for pointer implementation
+lint idx=1;
+
+//multiset trie
+// n -> max length of string & m -> no of strings
+// vector<vector<lint>> trie(n*m,vector<lint>(character_size,-1));
+// vector<lint> end_word(n*m,0);
+
+//O(s.length())
+void insert(vector<vector<lint>> &trie,vector<lint> &end_word,string s)
+{
+    lint n=s.length();
+    lint p=1;
+    for(lint i=0;i<n;i++)
+    {
+        if(trie[p][s[i]-'a']!=-1)
+        {
+            p=trie[p][s[i]-'a'];
+        }
+        else
+        {
+            trie[p][s[i]-'a']=++idx;
+            p=idx;
+        }
+    }
+    end_word[p]++;
+}
+
+//O(s.length())
+void del(vector<vector<lint>> &trie,vector<lint> &end_word,string s)
+{
+    lint n=s.length();
+    lint p=1;
+    for(lint i=0;i<n;i++)
+    {
+        if(trie[p][s[i]-'a']!=-1)
+        {
+            p=trie[p][s[i]-'a'];
+        }
+        else
+        {
+            return;
+        }
+    }
+    if(end_word[p]>0)
+        end_word[p]--;
+}
+
+//O(s.length())
+lint search(vector<vector<lint>> &trie,vector<lint> &end_word,string s)
+{
+    lint n=s.length();
+    lint p=1;
+    for(lint i=0;i<n;i++)
+    {
+        if(trie[p][s[i]-'a']!=-1)
+        {
+            p=trie[p][s[i]-'a'];
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    if(end_word[p]==0)
+        return 0;
+    return 1;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>str_trie</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

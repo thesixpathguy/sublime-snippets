@@ -1,0 +1,56 @@
+<snippet>
+	<content><![CDATA[
+//sparse segtree
+//segtree,lchild,rchild size -> 2*(Q * log(max range size)) + 1000
+//initialize lchild and rchild by 0
+//idx=1 denotes root of segment tree so it is pre fixed
+
+//stores buffer length
+//reinitialize to 0 after every tc
+lint idx=1;
+
+//build will be done by update as well
+//r not included and l and r are 1 based indexing
+lint update(vector<lint> &segtree,vector<lint> &lchild,vector<lint> &rchild,lint pos,lint val,lint x,lint l,lint r)
+{
+    if(pos<l||pos>=r)
+        return x;
+    if(x==0)
+    {
+        idx++;
+        x=idx;
+    }
+    if(l==r-1)
+    {
+        segtree[x]=val;
+        return x;
+    }
+    lint mid=(l+r)/2;
+    lchild[x]=update(segtree,lchild,rchild,pos,val,lchild[x],l,mid);
+    rchild[x]=update(segtree,lchild,rchild,pos,val,rchild[x],mid,r);
+    segtree[x]=combine(segtree[lchild[x]],segtree[rchild[x]]);
+    return x;
+
+}
+
+//r and R are not included
+//l,r,L,R are 1 based indexing
+lint query(vector<lint> &segtree,vector<lint> &lchild,vector<lint> &rchild,lint L,lint R,lint x,lint l,lint r)
+{
+    if(l>=R||r<=L)
+    //    return something which denotes value not found;
+    if(!x)
+    //    return something which denotes value not found;
+    if(l>=L&&r<=R)
+    {
+        return segtree[x];
+    }
+    lint mid=(l+r)/2;
+    return combine(query(segtree,lchild,rchild,L,R,lchild[x],l,mid),query(segtree,lchild,rchild,L,R,rchild[x],mid,r));
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>st_sparse</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

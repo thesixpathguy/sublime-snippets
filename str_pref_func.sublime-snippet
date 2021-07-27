@@ -1,0 +1,24 @@
+<snippet>
+	<content><![CDATA[
+// prefix function (kmp)
+vector<lint> prefix_function(string s) 
+{
+    lint n=(lint)s.length();
+    vector<lint> pi(n,0);
+    for(lint i=1;i<n;i++) 
+    {
+        lint j=pi[i-1];
+        while(j>0&&s[i]!=s[j])
+            j=pi[j-1];
+        if(s[i]==s[j])
+            j++;
+        pi[i]=j;
+    }
+    return pi;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>str_pref_func</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

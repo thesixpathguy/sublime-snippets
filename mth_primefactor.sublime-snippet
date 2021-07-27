@@ -1,0 +1,31 @@
+<snippet>
+	<content><![CDATA[
+// O(sqrt(n))
+/* can be optimised by a factor of 10 by storing only the primes in a vector
+ using seive precomputation  and then only iterating on the vector*/
+vector<lint> prime_factors(lint n)
+{
+    vector<lint> factors;
+    while(n%2==0)
+    {
+        factors.pb(2);
+        n=n/2;
+    }
+    for(lint i=3;i<=sqrt(n);i=i+2)
+    {
+        while(n%i==0)
+        {
+            factors.pb(i);
+            n=n/i;
+        }
+    }
+    if(n>2)
+        factors.pb(n);
+    return factors;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>mth_primefactor</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

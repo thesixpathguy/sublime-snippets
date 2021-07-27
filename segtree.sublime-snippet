@@ -1,0 +1,59 @@
+<snippet>
+	<content><![CDATA[
+//build(segtree,arr,1,1,n+1)
+//l and r are 1 based indexing
+//r is not included
+void build(vector<lint> &segtree,lint *arr,lint x,lint l,lint r)
+{
+    if(l==r-1)
+    {
+        segtree[x]=arr[l-1];
+        return;
+    }
+    lint mid=(l+r)/2;
+    build(segtree,arr,2*x,l,mid);
+    build(segtree,arr,2*x+1,mid,r);
+    segtree[x]=combine(segtree[2*x],segtree[2*x+1]);
+}
+
+//query(segtree,arr,L,R,1,1,n+1)
+//R and r are not included
+//L,R,l,r are 1 based indexing
+lint query(vector<lint> &segtree,lint *arr,lint L,lint R,lint x,lint l,lint r)
+{
+    if(l>=R||r<=L)
+    //    return something which symbolize not present ;
+    if(l>=L&&r<=R)
+    {
+        return segtree[x];
+    }
+    lint mid=(l+r)/2;
+    return combine(query(segtree,arr,L,R,2*x,l,mid),query(segtree,arr,L,R,2*x+1,mid,r));
+}
+
+//update(segtree,arr,pos,val,1,1,n+1)
+//l,r,pos are 1 based indexing
+//r is not included
+void update(vector<lint> &segtree,lint *arr,lint pos,lint val,lint x,lint l,lint r)
+{
+    if(pos<l||pos>=r)
+        return;
+    if(l==r-1)
+    {
+        segtree[x]=val;
+        arr[l-1]=val;
+        return;
+    }
+    lint mid=(l+r)/2;
+    update(segtree,arr,pos,val,2*x,l,mid);
+    update(segtree,arr,pos,val,2*x+1,mid,r);
+    segtree[x]=combine(segtree[2*x],segtree[2*x+1]);
+
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>segment_tree</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

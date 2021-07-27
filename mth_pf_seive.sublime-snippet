@@ -1,0 +1,42 @@
+<snippet>
+	<content><![CDATA[
+// first create seive in preprocessing phase 
+// O(n*log(log(n)))
+lint prime[1000010];
+
+void seive()
+{
+    for(lint i=1;i<1000010;i++)
+    {
+        prime[i]=-1;
+    }
+    for(lint i=2;i<1000010;i++)
+    {
+        if(prime[i]==-1)
+        {
+            for(lint j=i;j<1000010;j=j+i)
+            {
+                if(prime[j]==-1)
+                    prime[j]=i;
+            }
+        }
+    }
+}
+
+// query time O(log(n))
+vector<lint> prime_factor(lint x)
+{
+    vector<lint> ret;
+    while(x!=1)
+    {
+        ret.push_back(prime[x]);
+        x=x/prime[x];
+    }
+    return ret;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>mth_pf_seive</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

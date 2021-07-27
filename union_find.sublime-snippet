@@ -1,0 +1,28 @@
+<snippet>
+	<content><![CDATA[
+//USING FOR LOOP ASSIGN LINK[I]=I
+vector<lint> link(2000000);
+vector<lint> sz(2000000,1);
+
+lint find(lint a)
+{
+    if(link[a]==a)
+        return a;
+    return link[a]=find(link[a]);
+}
+
+void unite(lint a,lint b)
+{
+    a=find(a);
+    b=find(b);
+    if(sz[a]<sz[b])
+        swap(a,b);
+    link[b]=a;
+    sz[a]+=sz[b];
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>union_find</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

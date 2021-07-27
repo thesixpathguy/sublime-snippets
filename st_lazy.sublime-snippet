@@ -1,0 +1,90 @@
+<snippet>
+	<content><![CDATA[
+struct node{
+    lint data;
+    lint lazy=0;
+};
+
+//build(segtree,arr,1,1,n+1)
+//l and r are 1 based indexing
+//r is not included
+void build(vector<struct node> &segtree,lint *arr,lint x,lint l,lint r)
+{
+    if(l==r-1)
+    {
+        segtree[x].data=arr[l-1];
+        return;
+    }
+    lint mid=(l+r)/2;
+    build(segtree,arr,2*x,l,mid);
+    build(segtree,arr,2*x+1,mid,r);
+    segtree[x].data=(segtree[2*x].data+segtree[2*x+1].data);
+}
+
+//query(segtree,arr,L,R,1,1,n+1)
+//R and r are not included
+//L,R,l,r are 1 based indexing
+lint query(vector<struct node> &segtree,lint *arr,lint L,lint R,lint x,lint l,lint r)
+{
+    if(segtree[x].lazy!=0)
+    {
+        lint range=r-l;
+        segtree[x].data=segtree[x].data+(range*segtree[x].lazy);
+        if(l!=r-1)
+        {
+            segtree[2*x].lazy=segtree[2*x].lazy+segtree[x].lazy;
+            segtree[2*x+1].lazy=segtree[2*x+1].lazy+segtree[x].lazy;
+        }
+        segtree[x].lazy=0;
+    }
+    if(l>=R||r<=L)
+        return 0;
+    if(l>=L&&r<=R)
+    {
+        return segtree[x].data;
+    }
+    lint mid=(l+r)/2;
+    return (query(segtree,arr,L,R,2*x,l,mid)+query(segtree,arr,L,R,2*x+1,mid,r));
+}
+
+//update(segtree,arr,pos1,pos2,val,1,1,n+1)
+//l,r,pos1,pos2 are 1 based indexing
+//r and pos2 are not included
+void range_update(vector<struct node> &segtree,lint *arr,lint pos1,lint pos2,lint val,lint x,lint l,lint r)
+{
+    if(segtree[x].lazy!=0)
+    {
+        lint range=r-l;
+        segtree[x].data=segtree[x].data+(range*segtree[x].lazy);
+        if(l!=r-1)
+        {
+            segtree[2*x].lazy=segtree[2*x].lazy+segtree[x].lazy;
+            segtree[2*x+1].lazy=segtree[2*x+1].lazy+segtree[x].lazy;
+        }
+        segtree[x].lazy=0;
+    }
+    if(l>=pos2||r<=pos1)
+        return;
+    if(l>=pos1&&r<=pos2)
+    {
+        lint range=r-l;
+        segtree[x].data=segtree[x].data+(range*val);
+        if(l!=r-1)
+        {
+            segtree[2*x].lazy=segtree[2*x].lazy+val;
+            segtree[2*x+1].lazy=segtree[2*x+1].lazy+val;
+        }
+        return;
+    }
+    lint mid=(l+r)/2;
+    range_update(segtree,arr,pos1,pos2,val,2*x,l,mid);
+    range_update(segtree,arr,pos1,pos2,val,2*x+1,mid,r);
+    segtree[x].data=(segtree[2*x].data+segtree[2*x+1].data);
+
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>st_lazy</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

@@ -1,0 +1,9 @@
+{
+	"color_scheme": "Packages/Theme - Brogrammer/brogrammer.tmTheme",
+	"font_size": 12,
+	"ignored_packages":
+	[
+		"Vintage",
+	],
+	"theme": "Default Dark.sublime-theme",
+}

@@ -1,0 +1,24 @@
+<snippet>
+	<content><![CDATA[
+// factors in O(sqrt(n))
+// each factor single time
+void factors(lint n,vector<lint> &fact)
+{
+    fact.pb(1);
+    for(lint i=2;i*i<=n;i++)
+    {
+        if(n%i==0)
+        {
+            fact.pb(i);
+            if(i*i!=n)
+                fact.pb(n/i);
+        }
+    }
+    fact.pb(n);
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>mth_factor</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

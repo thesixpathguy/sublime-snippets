@@ -1,0 +1,29 @@
+<snippet>
+	<content><![CDATA[
+// z array
+vector<lint> z_function(string s) 
+{
+    lint n=s.length();
+    vector<lint> z(n,0);
+    lint l=0;
+    lint r=0;
+    for(lint i=1;i<n;i++)
+    {
+        if(i<=r)
+            z[i]=min(r-i+1,z[i-l]);
+        while(i+z[i]<n&&s[z[i]]==s[i+z[i]])
+            z[i]++;
+        if(i+z[i]-1>r)
+        {
+            l=i;
+            r=i+z[i]-1;
+        }
+    }
+    return z;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>str_zarr</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

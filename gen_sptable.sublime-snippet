@@ -1,0 +1,52 @@
+<snippet>
+	<content><![CDATA[
+// arr should be 0 based indexing
+void build(vector<vector<lint>> &sparse_table,lint *arr,lint n)
+{
+    lint range=1;
+    while(1)
+    {
+        if(range>n)
+            break;
+        vector<lint> temp(n,-1);
+        if(range==1)
+        {
+            for(lint i=0;i<n;i++)
+            {
+                temp[i]=arr[i];
+            }
+            sparse_table.pb(temp);
+            range=range*2;
+            continue;
+        }
+        lint p1=0;
+        lint p2=range-1;
+        lint idx=(lint)log2(range/2);
+        while(p2<n)
+        {
+            lint mid=range/2;
+            temp[p1]=min(sparse_table[idx][p1],sparse_table[idx][p1+mid]);
+            p1++;
+            p2++;
+        }
+        sparse_table.pb(temp);
+        range=range*2;
+    }
+}
+
+// l and r are 1 based indexing
+lint query(vector<vector<lint>> &sparse_table,lint l,lint r)
+{
+    if(l>r)
+        return inf;
+    lint diff=r-l+1;
+    lint x=(lint)low(log2(diff),1);
+    lint y=(lint)power(2,x);
+    return min(sparse_table[x][l-1],sparse_table[x][r-y]);
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>gen_sptable</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

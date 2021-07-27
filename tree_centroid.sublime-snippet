@@ -1,0 +1,33 @@
+<snippet>
+	<content><![CDATA[
+void ctr(vector<vector<lint>> &adj,lint *visited,lint s,lint c,lint *size,vector<lint> &centroid)
+{
+    if(visited[s])
+        return;
+    visited[s]=1;
+    lint maxx=0;
+    lint flg=1;
+    lint n=adj.size();
+    for(auto u:adj[s])
+    {
+        if(c!=u)
+        {
+            ctr(adj,visited,u,s,size,centroid);
+            maxx=maxx+size[u];
+            if(size[u]>(n/2))
+                flg=0;
+        }
+    }
+    lint rem=n-maxx-1;
+    if(rem<=(n/2)&&flg)
+    {
+        centroid.pb(s);
+    }
+    size[s]=1+maxx;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>tree_centroid</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

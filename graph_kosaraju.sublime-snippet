@@ -1,0 +1,58 @@
+<snippet>
+	<content><![CDATA[
+// kosaraju O(v+e)
+// make adj and rev_adj
+
+// part of main function
+/*
+    vector<lint> order;
+    vector<lint> visited(n+1,0);
+    for(lint i=1;i<=n;i++)
+    {
+        if(visited[i]==0)
+        {
+            dfs1(adj,visited,i,order);
+        }
+    }
+    vector<lint> visited1(n+1,0);
+    for(lint i=n-1;i>=0;i--)
+    {
+        if(visited1[order[i]]==0)
+        {
+            vector<lint> scc;
+            dfs2(rev_adj,visited1,order[i],scc);
+        }
+    }
+*/
+
+//dfs for finding the order
+void dfs1(vector<vector<lint>> &adj,vector<lint> &visited,lint s,vector<lint> &order)
+{
+    if(visited[s]==1)
+        return;
+    visited[s]=1;
+    for(auto u:adj[s])
+    {
+        dfs1(adj,visited,u,order);
+    }
+    order.pb(s);
+}
+
+//dfs for collecting the scc nodes
+void dfs2(vector<vector<lint>> &rev_adj,vector<lint> &visited1,lint s,vector<lint> &scc)
+{
+    if(visited1[s]==1)
+        return;
+    visited1[s]=1;
+    for(auto u:rev_adj[s])
+    {
+        dfs2(rev_adj,visited1,u,scc);
+    }
+    scc.pb(s);
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>graph_kosaraju</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

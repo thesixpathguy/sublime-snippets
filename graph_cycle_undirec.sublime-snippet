@@ -1,0 +1,41 @@
+<snippet>
+	<content><![CDATA[
+// run for loop in main function for all visited[i]=0 so that all components are covered
+// if ans size is grater than 2 after any iteration then we have got the ans
+// else after finishing of loop if ans.size == 0 then it has no cycle 
+void cycle_undirec(vector<vector<lint>> &adj,vector<lint> &visited,lint s,stack<lint> &st,vector<lint> &ans,lint p)
+{
+    if(visited[s])
+    {
+        if(ans.size()>0)
+            return;
+        ans.pb(s);
+        while(1)
+        {
+            lint x=st.top();
+            if(!st.empty())
+            st.pop();
+            ans.pb(x);
+            if(x==s)
+                break;
+        }
+        return;
+    }
+    visited[s]=1;
+    st.push(s);
+    for(auto u:adj[s])
+    {
+        if(u==p)
+            continue;
+        cycle_undirec(adj,visited,u,st,ans,s);
+        
+    }
+    if(!st.empty())
+    st.pop();
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>graph_cycle_undirec</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

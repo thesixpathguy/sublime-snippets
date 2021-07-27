@@ -1,0 +1,28 @@
+<snippet>
+	<content><![CDATA[
+// reverse the toposort vector after for loop in main function
+// flg to detect cycle
+void tpsort(vector<vector<lint>> &adj,vector<lint> &visited,lint s,vector<lint> &toposort,lint &flg)
+{
+    if(visited[s]==2)
+        return;
+    if(visited[s]==1)
+    {
+        flg=1;
+        return;
+    }
+    visited[s]=1;
+    for(auto u:adj[s])
+    {
+        tpsort(adj,visited,u,toposort,flg);
+        
+    }
+    visited[s]=2;
+    toposort.pb(s);
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>graph_toposort</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

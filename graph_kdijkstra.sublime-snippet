@@ -1,0 +1,37 @@
+<snippet>
+	<content><![CDATA[
+//intialize distance by inf
+// k should be less than 20
+void kth_dijkstra(vector<vector<pair<lint,lint>>> &adj,lint s,vector<vector<lint>> &distance,lint k)
+{
+    pq_greater pq;
+    distance[s][k-1]=0;
+    sort(distance[s].begin(),distance[s].end());
+    lint visited[adj.size()]={};
+    pq.push({0,s});
+    while(!pq.empty())
+    {
+        pair<lint,lint> x=pq.top();
+        pq.pop();
+        if(visited[x.ss]>=k+1)
+            continue;
+        visited[x.ss]++;
+        for(auto u:adj[x.ss])
+        {
+            if(distance[u.ff][k-1]>x.ff+u.ss)
+            {
+                distance[u.ff][k-1]=x.ff+u.ss;
+                pq.push({distance[u.ff][k-1],u.ff});;
+                sort(distance[u.ff].begin(),distance[u.ff].end());
+                
+            }
+        }
+
+    }
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>graph_kdijkstra</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

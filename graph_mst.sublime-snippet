@@ -1,0 +1,49 @@
+<snippet>
+	<content><![CDATA[
+vector<lint> link(2000000);
+vector<lint> sz(2000000,1);
+
+lint find(lint a)
+{
+    while(a!=link[a])
+    {
+        a=link[a];
+    }
+    return a;
+}
+
+void unite(lint a,lint b)
+{
+    a=find(a);
+    b=find(b);
+    if(sz[a]<sz[b])
+        swap(a,b);
+    link[b]=a;
+    sz[a]+=sz[b];
+}
+
+//sum is total weight
+//edge - w,a,b - w is weight and a-b is edge
+void min_span_tree(vector<tuple<lint,lint,lint>> &edge,vector<tuple<lint,lint,lint>> &mst,lint &sum)
+{
+    for(lint i=1;i<2000000;i++)
+        link[i]=i;
+    sort(edge.begin(),edge.end());
+    for(lint i=0;i<edge.size();i++)
+    {
+        lint w,a,b;
+        tie(w,a,b)=edge[i];
+        if(find(a)!=find(b))
+        {
+            mst.pb({a,b,w});
+            sum=sum+w;
+            unite(a,b);
+        }
+    }
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>graph_mst</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

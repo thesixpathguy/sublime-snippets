@@ -1,0 +1,40 @@
+<snippet>
+	<content><![CDATA[
+//in main
+/*
+    vector<vector<lint>> subtree(3,vector<lint>(n,0));
+    lint visited[n+1]={};
+    lint size[n+1]={};
+    lint idx=0;
+    map<lint,lint> hash;
+    dwpath(adj,visited,1,1,subtree,&idx,size,arr,hash);
+*/
+//then apply segtree
+void subtree_func(vector<vector<lint>> &adj,lint *visited,lint s,lint c,vector<vector<lint>> &subtree,lint *idx,lint *size,lint *arr,map<lint,lint> &hash)
+{
+    if(visited[s])
+        return;
+    visited[s]=1;
+    subtree[0][*idx]=s;
+    lint temp=*idx;
+    (*idx)++;
+    lint sum=0;
+    for(auto u:adj[s])
+    {
+        if(c!=u)
+        {
+            dwpath(adj,visited,u,s,subtree,idx,size,arr,hash);
+            sum=(sum+size[u]);
+        }
+    }
+    hash[s]=temp;
+    size[s]=1+sum;
+    subtree[1][temp]=size[s];
+    subtree[2][temp]=arr[s-1];
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>tree_subtree</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

@@ -1,0 +1,39 @@
+<snippet>
+	<content><![CDATA[
+// O(n) time and space complexity
+vector<lint> merge(vector<lint> p1,vector<lint> p2)
+{
+    vector<lint> temp;
+    lint it1=0;
+    lint it2=0;
+    while(it1<p1.size()&&it2<p2.size())
+    {
+        if(p1[it1]<=p2[it2])
+        {
+            temp.pb(p1[it1]);
+            it1++;
+        }
+        else
+        {
+            temp.pb(p2[it2]);
+            it2++;
+        }
+    }
+    while(it1<p1.size())
+    {
+        temp.pb(p1[it1]);
+        it1++;
+    }
+    while(it2<p2.size())
+    {
+        temp.pb(p2[it2]);
+        it2++;
+    }
+    return temp;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>gen_merge</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>
