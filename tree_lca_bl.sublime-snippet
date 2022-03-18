@@ -20,6 +20,7 @@ void dwpath(vector<vector<lint>> &adj,lint *visited,lint s,lint c,lint *parent,l
 
 //O(n*log(n))
 //--------ceil of log n--------
+//vector<vector<lint>> pre(n+1,vector<lint>(lim,0));
 void precomputation(vector<vector<lint>> &adj,vector<vector<lint>> &pre,lint *parent,lint lim,lint n)
 {
     for(lint i=1;i<=n;i++)

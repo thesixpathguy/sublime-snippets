@@ -1,0 +1,25 @@
+<snippet>
+	<content><![CDATA[
+// decimal to binary
+vector<lint> dtob(lint n)
+{
+    vector<lint> ans;
+    if(n==0)
+    {
+        return {0};
+    }
+    while(n>0)
+    {
+        lint val=n&1;
+        n=n>>1;
+        ans.pb(val);
+    }
+    reverse(ans.begin(), ans.end());
+    return ans;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>mth_decimaltobinary</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

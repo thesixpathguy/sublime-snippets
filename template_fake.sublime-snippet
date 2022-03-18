@@ -1,0 +1,110 @@
+<snippet>
+	<content><![CDATA[
+#include<bits/stdc++.h>
+using namespace std;
+#define lint                     long long 
+#define mem(a, b)               memset(a, (b), sizeof(a))
+#define high(a,b)               (lint)ceil((long double)a/(long double)b)
+#define low(a,b)                (lint)floor((long double)a/(long double)b)
+#define MOD                     1000000007
+#define inf                     1e17 
+#define neginf                  -1e17 
+#define testcase(t)             lint t; cin>>t; while(t--)  
+#define power(a,b)              (double)pow((double)a,(double)b)
+#define FOR(i,n)                for(lint i=0;i<n;i++)
+#define gcd(a,b)                __gcd(a,b)
+#define endl                    "\n"
+#define pb                      push_back
+#define ss                      second
+#define ff                      first
+void __print(int x) {cerr << x;}
+void __print(long x) {cerr << x;}
+void __print(long long x) {cerr << x;}
+void __print(unsigned x) {cerr << x;}
+void __print(unsigned long x) {cerr << x;}
+void __print(unsigned long long x) {cerr << x;}
+void __print(float x) {cerr << x;}
+void __print(double x) {cerr << x;}
+void __print(long double x) {cerr << x;}
+void __print(char x) {cerr << '\'' << x << '\'';}
+void __print(const char *x) {cerr << '\"' << x << '\"';}
+void __print(const string &x) {cerr << '\"' << x << '\"';}
+void __print(bool x) {cerr << (x ? "true" : "false");}
+template<typename T, typename V>
+void __print(const pair<T, V> &x) {cerr << '{'; __print(x.first); cerr << ','; __print(x.second); cerr << '}';}
+template<typename T>
+void __print(const T &x) {int f = 0; cerr << '{'; for (auto &i: x) cerr << (f++ ? "," : ""), __print(i); cerr << "}";}
+void _print() {cerr << "]\n";}
+template <typename T, typename... V>
+void _print(T t, V... v) {__print(t); if (sizeof...(v)) cerr << ", "; _print(v...);}
+#ifndef ONLINE_JUDGE
+#define debug(x...) cerr << "[" << #x << "] = ["; _print(x)
+#else
+#define debug(x...)
+#endif
+void debug_array(lint *arr,lint n)
+{
+    cerr<<"[";
+    for(lint i=0;i<n;i++)
+    {
+        cerr<<arr[i]<<" ";
+    }
+    cerr<<"]";
+    cerr<<endl;
+}      
+void c_p_c()
+{
+    ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+    #ifndef ONLINE_JUDGE
+    freopen("C:\\\Users\\\pranjal bhatt\\\Desktop\\\code contests\\\input1cc.txt", "r", stdin);
+    freopen("C:\\\Users\\\pranjal bhatt\\\Desktop\\\code contests\\\output1cc.txt", "w", stdout);
+    #endif
+}
+lint me(lint x, lint y, lint p)  
+{  
+    
+    lint res=1;     
+    x=x%p;           
+    if(x==0)return 0;          
+    while(y>0)  
+    {                  
+        if(y&1)  
+        res=(res*x)%p;  
+        y=y>>1;  
+        x=(x*x)%p;  
+    }  
+    return res;  
+}
+void solve(lint tc)
+{
+    
+
+}
+int main()
+{
+    c_p_c();
+    lint flg99=0;
+    if(flg99==1)
+    {
+        lint tc=1;
+        testcase(t)
+        {
+            solve(tc);
+            tc++;
+        }
+    }
+    else
+    {
+        lint tc=1;
+        solve(tc);
+    }
+    return 0;
+            
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>template_fake</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

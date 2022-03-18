@@ -1,0 +1,26 @@
+<snippet>
+	<content><![CDATA[
+// inverse factorial computation
+const int MAXN = 2*1e5+1;
+lint factorial[MAXN];
+lint inverse_fac[MAXN];
+void factInverse()
+{
+    factorial[0]=1;
+    for(lint i=1;i<MAXN;i++)
+    {
+        factorial[i]=(factorial[i-1]*i)%MOD;
+    }
+    inverse_fac[MAXN-1]=modInverse(factorial[MAXN-1],MOD);
+    for(lint i=MAXN-2;i>=0;i--)
+    {
+        inverse_fac[i]=(inverse_fac[i+1]*(i+1))%MOD;
+    }
+    return;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>mth_invFactorial</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

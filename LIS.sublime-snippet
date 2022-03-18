@@ -1,0 +1,52 @@
+<snippet>
+	<content><![CDATA[
+// LIS in O(log n) and printing also
+vector<lint> LIS(lint *arr, lint n)
+{
+    vector<lint> v;
+    map<lint,vector<lint>> hash;
+    for(lint i=0;i<n;i++)
+    {   
+        if(v.empty())
+        {
+            v.pb(arr[i]);
+            hash[v.size()-1].pb(i);
+        }
+        lint pos=(lint)(lower_bound(all(v),arr[i])-v.begin());
+        if(pos==v.size())
+        {
+            v.pb(arr[i]);
+            hash[v.size()-1].pb(i);
+        }
+        else
+        {
+            v[pos]=arr[i];
+            hash[pos].pb(i);
+        }
+    }
+    lint pos=v.size()-1;
+    lint prev=inf;
+    lint prev1=inf;
+    vector<lint> ans;
+    while(pos>=0)
+    {
+        lint maxx=-1;
+        for(auto x:hash[pos])
+        {
+            if(x<prev&&arr[x]<prev1)
+                maxx=max(maxx,x);
+        }
+        ans.pb(arr[maxx]);
+        prev=maxx;
+        prev1=arr[maxx];
+        pos--;
+    }
+    reverse(all(ans));
+    return ans;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>LIS</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

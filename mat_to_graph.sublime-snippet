@@ -1,0 +1,43 @@
+<snippet>
+	<content><![CDATA[
+    lint idx=1;
+    lint temp[n][m];
+    for(lint i=0;i<n;i++)
+    {
+        for(lint j=0;j<m;j++)
+        {
+            temp[i][j]=-1;
+            if(arr[i][j]=='*')
+            {
+                temp[i][j]=idx;
+                idx++;
+            }
+        }
+    }
+    vector<vector<lint>> adj(idx);
+    for(lint i=0;i<n;i++)
+    {
+        for(lint j=0;j<m;j++)
+        {
+            if(arr[i][j]=='*')
+            {
+                for(lint k=0;k<4;k++)
+                {
+                    lint x=i-dx[k];
+                    lint y=j-dy[k];
+                    if(x<n&&x>=0&&y<m&&y>=0&&temp[x][y]!=-1)
+                    {
+                        adj[temp[x][y]].pb(temp[i][j]);
+                        adj[temp[i][j]].pb(temp[x][y]);
+                    }
+                }
+            }
+        }
+    }
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>mat_to_graph</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>
