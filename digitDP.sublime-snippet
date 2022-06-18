@@ -1,0 +1,52 @@
+<snippet>
+	<content><![CDATA[
+//add extra 0 to make length equal
+string l;
+string r;
+lint n;
+lint d; // sum divisible by d (MOD)
+//remember to reintialise dp in every testcase
+lint dp[10005][2][2][105];
+
+void digitDP(lint lv,lint lo,lint hi,lint rem)
+{
+    if(lv==n)
+    {
+        if(rem==0)
+            dp[lv][lo][hi][rem]=1;
+        else
+            dp[lv][lo][hi][rem]=0;
+        return;
+    }
+    if(dp[lv][lo][hi][rem]==-1)
+    {
+        lint llim=0;
+        lint hlim=9;
+        if(hi==1)
+            hlim=(lint)(r[lv]-'0');
+        if(lo==1)
+            llim=(lint)(l[lv]-'0');
+        lint ans=0;
+        for(lint i=llim;i<=hlim;i++)
+        {
+            lint nlo=lo;
+            lint nhi=hi;
+            if(i!=(lint)(r[lv]-'0'))
+                nhi=0;
+            if(i!=(lint)(l[lv]-'0'))
+                nlo=0;
+            lint nrem=(rem+i)%d;
+            digitDP(lv+1,nlo,nhi,nrem);
+            ans+=dp[lv+1][nlo][nhi][nrem];
+            ans=ans%MOD;
+        }
+        dp[lv][lo][hi][rem]=ans%MOD;
+
+    }
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>digitDP</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

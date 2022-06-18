@@ -104,8 +104,8 @@ void c_p_c()
 {
     ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
     #ifndef ONLINE_JUDGE
-    freopen("C:\\\Users\\\pranjal bhatt\\\Desktop\\\code contests\\\input1cc.txt", "r", stdin);
-    freopen("C:\\\Users\\\pranjal bhatt\\\Desktop\\\code contests\\\output1cc.txt", "w", stdout);
+    freopen("input1cc.txt", "r", stdin);
+    freopen("output1cc.txt", "w", stdout);
     #endif
 }
 
